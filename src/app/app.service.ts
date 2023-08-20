@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
 
 export default class AppService {
-  public getStatus(res: Response): void {
-    res.send({
-      status: true
+  public getStatus(req: Request, res: Response): Response<any, Record<string, any>> {
+    return res.status(200).send({
+      status: true,
+      internetProtocol: req.ip
     });
-
-    return
   }
 }
