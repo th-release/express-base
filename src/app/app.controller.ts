@@ -1,4 +1,4 @@
-import { Response, Router } from "express";
+import { Router } from "express";
 import AppService from "./app.service";
 
 export class AppController {
@@ -10,7 +10,7 @@ export class AppController {
   }
 
   private initializeRoutes(prefix: string): void {
-    this.router.get(`${prefix}`, (req, res) => this.appService.getStatus(res));
+    this.router.get(`${prefix}`, (req, res) => this.appService.getStatus(req, res));
   }
 
   public getRouter(): Router {
