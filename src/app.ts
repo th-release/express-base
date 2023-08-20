@@ -1,6 +1,9 @@
 import * as express from 'express';
 import * as skio from 'socket.io'
 import { AppController } from './app/app.controller';
+
+const controllers = [new AppController('/')]
+
 export default class App {
   public router: express.Application;
   public io: skio.Server | undefined;
@@ -12,14 +15,17 @@ export default class App {
   }
 
   private controllerInit(): void {
+    try {
+      controllers.forEach((controller) => {
+        const controllerRouter: express.Router = controller.getRouter();
+        this.router.use('/api', controllerRouter);
+      })
+    } catch (err) {
+      console.error('controller Init Error:' + err)
+      return process.exit(1);
+    }
+
     console.log("controller Init Success");
-
-    const controllers = [new AppController('/')];
-
-    controllers.forEach((controller) => {
-      const controllerRouter: express.Router = controller.getRouter();
-      this.router.use('/api', controllerRouter);
-    })
   }
 
   private start(): void {
