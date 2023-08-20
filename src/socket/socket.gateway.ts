@@ -1,7 +1,9 @@
 import * as skio from 'socket.io'
+import SocketService from './socket.service';
 
 export default class SocketGateway {
   public socket: skio.Socket;
+  private socketService: SocketService = new SocketService();
 
   constructor(socket: skio.Socket) {
     this.socket = socket;
@@ -10,7 +12,7 @@ export default class SocketGateway {
 
   private initializeSocket(): void {
     this.socket.on("hello", () => {
-      this.socket.emit("data", "world")
+      this.socketService.responseData(this.socket);
     })
   }
 }
