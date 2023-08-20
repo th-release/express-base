@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as skio from 'socket.io'
 import { AppController } from './app/app.controller';
-import SocketGateway from './socket/socket.gateway';
+import SocketTerminal from './socket/socket.terminal';
 
 const controllers = [new AppController('/')]
 
@@ -32,7 +32,7 @@ export default class App {
 
   private socketInit(): void {
     this.io?.on('connection', (socket: skio.Socket) => {
-      new SocketGateway(socket);
+      new SocketTerminal(socket);
     })
   }
 
