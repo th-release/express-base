@@ -4,7 +4,7 @@
   "main": "dist/src/index.ts",
   "license": "MIT",
   "scripts": {
-    "start:dev": "yarn build:live",
+    "start:dev": "bun build:live",
     "start": "'ts-node' src/index.ts",
     "build:live": "nodemon --watch '*.ts' --exec 'ts-node' src/index.ts"
   },
